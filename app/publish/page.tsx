@@ -1,8 +1,11 @@
-import Editor2 from "@/components/publish/Editor2"
-import ImageUploadEditor from "@/components/publish/Editor3"
+import { Editor } from "@/components/editor/Editor"
+import { PublishNavBar } from "@/components/publish/PublishNavBar";
+
 export default function Publish() {
-    return <>
-        Publish
-        <Editor2/>
-    </>
+    return <div className="">
+        <PublishNavBar/>
+        <div className=" ">
+            <Editor/>
+        </div>
+    </div>
 }
