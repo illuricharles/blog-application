@@ -6,11 +6,14 @@ import Heading from '@tiptap/extension-heading'
 import { ToolBar } from './ToolBar'
 import TextAlign from '@tiptap/extension-text-align'
 import Link from '@tiptap/extension-link'
+import { ImageGallery } from '../imageUploader/ImageGallery'
+import { useState } from 'react'
+
 
 type Levels = 1 | 2 | 3
 
 export function Editor() {
-
+    const [showGallery, setShowGallery] = useState(false)
     const extensions = [
         StarterKit.configure({
             paragraph: {
@@ -89,8 +92,16 @@ export function Editor() {
         },
         immediatelyRender:false
     })
-    return <div className="">
-        <ToolBar editor={editor}/>
-        <EditorContent editor={editor} />
+
+    function handleShowImageGallery(value: boolean) {
+        setShowGallery(value)
+    }
+
+    return <div className="min-h-screen flex flex-col gap-y-5 ">
+        <div>
+            <ToolBar editor={editor} onImageSelect={() => setShowGallery(true)}/>
+            <EditorContent editor={editor} />
+            <ImageGallery visible = {showGallery} handleShowImageGallery={handleShowImageGallery}/>
+        </div>
     </div>
 }
