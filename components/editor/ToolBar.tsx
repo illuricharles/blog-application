@@ -1,24 +1,20 @@
 import { ToolBarButtons } from "./ToolBarButtons";
 import React from "react";
 import { Editor } from "@tiptap/react";
-import { LinkElement } from "./LinkElement";
 
 interface Props {
-    editor: Editor | null
+    editor: Editor | null,
+    onImageSelect: () => void
 }
 
-export function ToolBar({editor}: Props) {
-    if(!editor) {
+export function ToolBar({ editor, onImageSelect }: Props) {
+    if (!editor) {
         return null
     }
 
-    function getLinkInitialValue() {
-        const link = editor?.getAttributes('link').href 
-        return link
-    }
 
-    return <div className="flex">
-         <ToolBarButtons editor = {editor}/>
-         <LinkElement editor={editor} initialLink = {getLinkInitialValue()}/>
+
+    return <div className="sticky top-0 z-40 flex justify-center w-5/6 sm:w-full m-auto">
+        <ToolBarButtons editor={editor} onImageSelect={onImageSelect} />
     </div>
 }

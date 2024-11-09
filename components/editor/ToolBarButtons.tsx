@@ -6,9 +6,12 @@ import {  FaBold, FaItalic, FaStrikethrough } from "react-icons/fa";
 import { GrBlockQuote, GrTextAlignCenter, GrTextAlignLeft, GrTextAlignRight } from "react-icons/gr";
 import { LuListOrdered } from "react-icons/lu";
 import {  MdFormatListBulleted } from "react-icons/md";
+import { ImageUploaderButton } from "../imageUploader/ImageUploaderButton";
+import { LinkElement } from "./LinkElement";
 
 interface Props {
-    editor: Editor | null
+    editor: Editor | null,
+    onImageSelect: () => void
 }
 
 const largeIconSize = 22
@@ -102,11 +105,18 @@ function onClickEditorButton(task: string, editor: Editor) {
   }
 }
 
-export function ToolBarButtons({editor}: Props) {
+
+
+export function ToolBarButtons({editor, onImageSelect}: Props) {
     if(!editor) return null 
 
-    return <div>
-      <div className="">
+    function getLinkInitialValue() {
+      const link = editor?.getAttributes('link').href 
+      return link
+    }
+
+    return <div className="">
+      <div className="flex flex-wrap ">
         {editorButtons.map(eachItem => {
           let isActive = false 
           if(editor.isActive(eachItem.task)) isActive = true
@@ -120,7 +130,8 @@ export function ToolBarButtons({editor}: Props) {
             {eachItem.icon}
           </button>
         })}
-        
+        <ImageUploaderButton onImageSelect={onImageSelect}/>
+        <LinkElement editor={editor} initialLink = {getLinkInitialValue()}/>
       </div>
     </div>
     

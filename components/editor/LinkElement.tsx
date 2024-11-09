@@ -28,10 +28,7 @@ const taskItems = [
 
 function DisplayLinkInput({handleTextLinkInput, inputValue, setLinkToText, closeShowLinkInput}: DisplayLinkInputProps) {
 
-    
-    
-
-    return <div className="absolute top-10 z-50 bg-white border border-gray-700 rounded px-2 py-1">
+    return <div className="relative -top-20 z-50 bg-white border border-gray-700 rounded px-2 py-1 flex sm:-left-3/4 sm:top-2 md:-left-1/2">
         <input type="text" placeholder="https://example.com" className=" rounded outline-none"
         onChange={(e) => handleTextLinkInput(e.target.value)}
         value={inputValue}
@@ -40,7 +37,6 @@ function DisplayLinkInput({handleTextLinkInput, inputValue, setLinkToText, close
         onClick={() => {
             setLinkToText(inputValue)
             closeShowLinkInput()
-
         }
     }
         className="px-2 bg-green-700 text-white py-1 rounded"
@@ -79,15 +75,19 @@ export function LinkElement({ editor, initialLink }: Props) {
         editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run() // Add `unsetLink()` here
     }
 
+    function onClickLinkButton() {
+        setShowLinkInput(!showLinkInput)
+    }
+
     return <div >
-        <div className="relative">
-            <button
+        <button
             className={clsx('p-2', editor.isActive(taskItems[0].task) ? "bg-black text-white" : "bg-white text-black")}
-            onClick={() => setShowLinkInput(!showLinkInput)}
+            onClick={() => onClickLinkButton()}
             >
                 {taskItems[0].icon}
             </button>
+        <div className="absolute">
+            {showLinkInput? <DisplayLinkInput editor={editor} closeShowLinkInput={closeShowLinkInput} setLinkToText={setLinkToText} handleTextLinkInput={handleTextLinkInput} inputValue ={textLinkInput}/>:null}
         </div>
-        {showLinkInput? <DisplayLinkInput editor={editor} closeShowLinkInput={closeShowLinkInput} setLinkToText={setLinkToText} handleTextLinkInput={handleTextLinkInput} inputValue ={textLinkInput}/>:null}
     </div>
 }

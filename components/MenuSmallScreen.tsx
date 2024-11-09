@@ -23,7 +23,7 @@ export function MenuSmallScreen() {
     return <button className="md:hidden" onClick={() => setOpen(!open)}>
         {!open ? <HamburgerIcon /> : <CloseIcon />}
         {open && 
-        <div className="absolute bg-white shadow-xl top-full right-0 px-5 py-4 z-10">
+        <div className="absolute bg-white shadow-xl top-full right-0 px-5 py-4 z-50">
             
             <div className="flex flex-col space-y-4 ">
                 <Link href={'/'}>Homepage</Link>
