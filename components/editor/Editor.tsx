@@ -8,6 +8,7 @@ import TextAlign from '@tiptap/extension-text-align'
 import Link from '@tiptap/extension-link'
 import { ImageGallery } from '../imageUploader/ImageGallery'
 import { useState } from 'react'
+import Image from '@tiptap/extension-image'
 
 
 type Levels = 1 | 2 | 3
@@ -79,6 +80,12 @@ export function Editor() {
         }),
         TextAlign.configure({
             types: ['heading', 'paragraph'],
+        }),
+        Image.configure({
+            inline:false,
+            HTMLAttributes: {
+                class: "w-60 aspect-square m-auto  mt-2 rounded"
+            }
         })
     
     ]
@@ -96,12 +103,13 @@ export function Editor() {
     function handleShowImageGallery(value: boolean) {
         setShowGallery(value)
     }
+    if(!editor) return null
 
     return <div className="min-h-screen flex flex-col gap-y-5 ">
         <div>
             <ToolBar editor={editor} onImageSelect={() => setShowGallery(true)}/>
             <EditorContent editor={editor} />
-            <ImageGallery visible = {showGallery} handleShowImageGallery={handleShowImageGallery}/>
+            <ImageGallery editor = {editor} visible = {showGallery} handleShowImageGallery={handleShowImageGallery}/>
         </div>
     </div>
 }

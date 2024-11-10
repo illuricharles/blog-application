@@ -1,7 +1,19 @@
 "use client";
 import { UploadButton } from "@/utils/uploadthing";
 
-export function ImageUploader() {
+interface Images {
+    appUrl: string,
+    key: string,
+    name: string,
+    url: string
+}
+
+
+interface Props {
+    handleUploadedImages: (imageDetails: Images) => void
+}
+
+export function ImageUploader({handleUploadedImages}: Props) {
 
      
     return <div className="flex w-full flex-col items-center justify-between p-8">
@@ -9,6 +21,13 @@ export function ImageUploader() {
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
             // Do something with the response
+            const imageDetails = {
+                appUrl: res[0].appUrl,
+                key: res[0].key,
+                name: res[0].name,
+                url: res[0].url
+            }
+            handleUploadedImages(imageDetails)
             console.log("Files: ", res);
             alert("Upload Completed");
         }}
