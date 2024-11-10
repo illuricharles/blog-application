@@ -13,7 +13,7 @@ import { useState } from 'react'
 type Levels = 1 | 2 | 3
 
 export function Editor() {
-    const [showGallery, setShowGallery] = useState(false)
+    const [showGallery, setShowGallery] = useState(true)
     const extensions = [
         StarterKit.configure({
             paragraph: {
