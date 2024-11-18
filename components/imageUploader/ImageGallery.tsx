@@ -21,12 +21,9 @@ interface Images {
 }
 
 
-
 export function ImageGallery({visible, handleShowImageGallery, editor}: Props) {
 
     const [uploadedImages, setUploadedImage] = useState<Images[]>([])
-
-    
 
     function handleUploadedImages(imageDetails: Images) {
         const updatedImages: Images[] = [imageDetails, ...uploadedImages]
