@@ -18,7 +18,7 @@ export default function Login() {
 
     if (loading) return null
 
-    return <div className="">
+    return <div className="flex-grow flex justify-center items-center mb-8">
 
         <div className=" border shadow-md rounded p-5 sm:w-96 w-80">
             <FormHeader />

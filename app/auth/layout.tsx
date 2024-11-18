@@ -12,9 +12,7 @@ export default function RootLayout({
                 <header>
                     <Navbar />
                 </header>
-                <main className="flex-grow flex justify-center items-center mb-8">
-                    {children}
-                </main>
+                {children}
                 <footer>
                     <Footer />
                 </footer>
