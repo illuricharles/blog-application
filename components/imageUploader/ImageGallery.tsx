@@ -74,7 +74,7 @@ export function ImageGallery({ visible, handleShowImageGallery, editor }: Props)
     }
 
     if (!visible) return null
-    return <div className="fixed inset-0 flex flex-col justify-center items-center  bg-black h-screen z-50 bg-opacity-50 backdrop-blur-sm">
+    return <div className="fixed inset-0 flex flex-col justify-center items-center  bg-black h-screen z-50 bg-opacity-50 backdrop-blur-sm ">
         <div className="relative w-4/6 h-5/6 bg-white rounded-lg overflow-y-auto">
             <div className="absolute right-0 top-0 p-2">
                 <button onClick={() => handleShowImageGallery(false)}>

@@ -14,7 +14,7 @@ export function ToolBar({ editor, onImageSelect }: Props) {
 
 
 
-    return <div className="sticky top-0 z-40 flex justify-center w-5/6 sm:w-full m-auto">
+    return <div className="sticky top-0 z-40 flex justify-center w-5/6 sm:w-full m-auto mb-5">
         <ToolBarButtons editor={editor} onImageSelect={onImageSelect} />
     </div>
 }
