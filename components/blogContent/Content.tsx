@@ -87,7 +87,16 @@ export function Content() {
 
     const editor = useEditor({
         extensions,
-        content: `<img class="w-60 aspect-square m-auto  mt-2 rounded" src="https://utfs.io/f/UNHJEU85pabu8QF8ctHrwpG4xbtcnKlRDNZh5WULs0Oe1dg8" alt=""><p class="text-lg">This is a test pratice</p>`,
+        content: `
+        <img class="w-60 aspect-square m-auto  mt-2 rounded" src="https://utfs.io/f/UNHJEU85pabu8QF8ctHrwpG4xbtcnKlRDNZh5WULs0Oe1dg8" alt="">
+         <script>
+        // Simulated user input (mimicking a vulnerability)
+        const userInput = '<img src="x" onerror="alert('XSS Detected!')">';
+
+        // Vulnerable code: injecting unsanitized user input into the DOM
+        document.getElementById('output').innerHTML = userInput;
+    </script>
+        <p class="text-lg">This is a test practice</p>`,
         editorProps: {
             attributes: {
                 class: 'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl mt-3 min-h-96  outline-gray-200 p-2 rounded',
