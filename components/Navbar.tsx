@@ -1,17 +1,33 @@
-import { MenuSmallScreen } from "./MenuSmallScreen";
+import { auth, signOut } from "@/auth";
 import Link from "next/link";
 
-export function Navbar() {
+export async function Navbar() {
+    const session = await auth()
+
     return <div className="mb-5">
-        <div className="flex justify-between  py-4 relative">
+        <div className="flex justify-between items-center py-4 relative">
             <Link className="text-xl font-bold sm:text-2xl " href={'/'}>Medium</Link>
-            <div className="space-x-6 font-semibold hidden md:block text-md">
-                <Link href={'/'}>Homepage</Link>
-                <Link href={'/'}>Contact</Link>
+            <div className="text-sm space-x-3 md:space-x-6 font-semibold  md:block md:text-md">
+                <Link href={'/'} className="hidden md:inline">Homepage</Link>
+
+                <Link href={'/contact'}>Contact</Link>
                 <Link href={'/'}>About</Link>
-                <Link href={'/'}>Login</Link>
+
+                {session ?
+                    <form className="inline" action={async () => {
+                        'use server'
+                        await signOut({
+                            redirectTo: '/auth/login'
+                        })
+                    }}>
+                        <button>
+                            Logout
+                        </button>
+                    </form> :
+                    <button >Login</button>
+                }
             </div>
-            <MenuSmallScreen/>
+            {/* <MenuSmallScreen session={session} /> */}
 
         </div>
     </div>
