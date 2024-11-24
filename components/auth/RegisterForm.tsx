@@ -48,7 +48,6 @@ export function RegisterForm() {
 
     useEffect(() => {
         setLoading(false)
-        console.log(formSubmissionMessage)
     }, [])
 
     if (loading) return <div>loading.....</div>

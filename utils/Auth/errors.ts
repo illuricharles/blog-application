@@ -2,7 +2,7 @@ import { CredentialsSignin } from "next-auth";
 
 export type SigInInErrorCodeType = "InvalidCredentials" | "VerifyEmail";
 
-export class VerifyEmail extends CredentialsSignin {
+export class EmailNotVerifiedError extends CredentialsSignin {
   code: SigInInErrorCodeType = "VerifyEmail";
 }
 

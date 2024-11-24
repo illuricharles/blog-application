@@ -1,4 +1,6 @@
+import { prisma } from "@/prisma";
 import nodemailer from "nodemailer";
+import { v4 as uuidv4 } from "uuid";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.sendgrid.net",
@@ -9,16 +11,27 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export async function verificationEmail() {
-  const mailOptions = {
-    from: "illuricharles6@gmail.com", // Verified sender email
-    to: "ben1335794c@gmail.com", // Recipient email
-    subject: "Test Email from SendGrid SMTP",
-    text: "Hello from SendGrid SMTP!",
-    html: "<strong>Hello from SendGrid SMTP!</strong>",
-  };
-
+export async function verificationEmail(to: string) {
   try {
+    const expire = new Date(new Date().getTime() + 3600 * 1000);
+    const token = uuidv4();
+    await prisma.emailVerification.create({
+      data: {
+        email: to,
+        token,
+        expire,
+      },
+    });
+
+    const mailOptions = {
+      from: "illuricharles6@gmail.com", // Verified sender email
+      to, // Recipient email
+      subject: "Email Verification",
+      text: "Hello from blog application",
+      html: `
+      <p><strong> Hi, </strong></p>`,
+    };
+
     const info = await transporter.sendMail(mailOptions);
     console.log("Email sent successfully:", info.messageId);
     return true;

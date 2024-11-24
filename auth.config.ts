@@ -1,9 +1,11 @@
-import { type NextAuthConfig } from "next-auth";
+import { User, type NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "./prisma";
 import bcrypt from "bcryptjs";
 import { LoginFormSchema } from "./utils/loginFormTypes";
-import { InvalidCredentials } from "./utils/Auth/errors";
+import { InvalidCredentials, EmailNotVerifiedError } from "./utils/Auth/errors";
+import Github from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
 
 // class UserEmailNotFound extends CredentialsSignin {
 //   code = "Email not found";
@@ -12,6 +14,11 @@ import { InvalidCredentials } from "./utils/Auth/errors";
 // Notice this is only an object, not a full Auth.js instance
 export default {
   providers: [
+    Github({
+      clientId: process.env.AUTH_GITHUB_ID,
+      clientSecret: process.env.AUTH_GITHUB_SECRET,
+    }),
+    Google,
     Credentials({
       async authorize(credentials) {
         const { success, data } = LoginFormSchema.safeParse(credentials);
@@ -26,7 +33,9 @@ export default {
           },
         });
 
-        if (!existingUser?.email || !existingUser.password) {
+        if (!existingUser) throw new InvalidCredentials();
+
+        if (!existingUser.email || !existingUser.password) {
           throw new InvalidCredentials();
         }
 
@@ -38,7 +47,11 @@ export default {
           throw new InvalidCredentials();
         }
 
-        return existingUser;
+        if (!existingUser.emailVerified) {
+          throw new EmailNotVerifiedError();
+        }
+
+        return existingUser as User;
       },
     }),
   ],
