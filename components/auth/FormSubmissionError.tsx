@@ -20,7 +20,7 @@ export function FormSubmissionError({ code, message }: Props) {
             case "VerifyEmail":
                 customErrorMessage =
                     "We've sent a verification email to your inbox. Please verify your email to proceed.";
-                icon = <FaInfoCircle size={40} />;
+                icon = <FaInfoCircle size={45} />;
                 break;
             default:
                 customErrorMessage = "An unexpected issue occurred. Please try again later.";

@@ -6,6 +6,7 @@ import { LoginFormSchema } from "./utils/loginFormTypes";
 import { InvalidCredentials, EmailNotVerifiedError } from "./utils/Auth/errors";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+import { verificationEmail } from "./utils/email-verification";
 
 // class UserEmailNotFound extends CredentialsSignin {
 //   code = "Email not found";
@@ -48,6 +49,7 @@ export default {
         }
 
         if (!existingUser.emailVerified) {
+          await verificationEmail(existingUser.email);
           throw new EmailNotVerifiedError();
         }
 
@@ -57,5 +59,6 @@ export default {
   ],
   pages: {
     signIn: "/auth/login",
+    error: "/auth/error",
   },
 } satisfies NextAuthConfig;

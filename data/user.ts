@@ -18,6 +18,17 @@ export async function getUserByUserId(userId: string) {
   return user;
 }
 
+export async function setEmailVerificationTrueByEmail(email: string) {
+  await prisma.user.update({
+    where: {
+      email,
+    },
+    data: {
+      emailVerified: new Date(),
+    },
+  });
+}
+
 export async function setUserEmailVerificationTrue(userId: string) {
   await prisma.user.update({
     where: {

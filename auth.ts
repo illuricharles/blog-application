@@ -4,7 +4,6 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { JWT } from "@auth/core/jwt";
 import { prisma } from "./prisma";
 import { getUserByUserId, setUserEmailVerificationTrue } from "./data/user";
-import { EmailNotVerifiedError } from "./utils/Auth/errors";
 
 declare module "next-auth" {
   interface User {
@@ -15,10 +14,6 @@ declare module "next-auth" {
 export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     signIn: async ({ account, user }) => {
-      if (account?.provider === "credentials" && !user.emailVerified) {
-        throw new EmailNotVerifiedError();
-      }
-
       if (account?.provider === "github" || account?.provider === "google") {
         if (!user.id) return false;
 

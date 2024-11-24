@@ -26,6 +26,6 @@ export async function userRegister(data: RegisterFormTypes) {
     return { success: "Registered Successfully" };
   } catch (e) {
     console.log(e);
-    return { error: "Something went wrong register" };
+    return { error: "Something went wrong.Try again after sometime." };
   }
 }

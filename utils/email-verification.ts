@@ -15,8 +15,16 @@ export async function verificationEmail(to: string) {
   try {
     const expire = new Date(new Date().getTime() + 3600 * 1000);
     const token = uuidv4();
-    await prisma.emailVerification.create({
-      data: {
+
+    await prisma.emailVerification.upsert({
+      where: {
+        email: to,
+      },
+      update: {
+        token,
+        expire,
+      },
+      create: {
         email: to,
         token,
         expire,
@@ -29,14 +37,17 @@ export async function verificationEmail(to: string) {
       subject: "Email Verification",
       text: "Hello from blog application",
       html: `
-      <p><strong> Hi, </strong></p>`,
+      <p><strong> Hi, </strong> <a href = ${
+        process.env.NEXT_PUBLIC_BASE_URL +
+        "/auth/verify-email?token=" +
+        `${token}`
+      }>click here</a> to verify your email</p>`,
     };
 
     const info = await transporter.sendMail(mailOptions);
     console.log("Email sent successfully:", info.messageId);
-    return true;
   } catch (error) {
     console.error("Error sending email:", error);
-    return false;
+    throw new Error();
   }
 }
