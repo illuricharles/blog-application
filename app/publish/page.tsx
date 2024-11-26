@@ -1,11 +1,21 @@
+import { auth } from "@/auth";
 import { Editor } from "@/components/editor/Editor"
-import { PublishNavBar } from "@/components/publish/PublishNavBar";
+import { Navbar } from "@/components/Navbar";
+// import { PublishNavBar } from "@/components/publish/PublishNavBar";
+import { redirect } from "next/navigation";
 
-export default function Publish() {
+export default async function Publish() {
+
+    const session = await auth()
+    if (!session) {
+        redirect('/auth/login')
+    }
+
+
     return <div className="">
-        <PublishNavBar/>
+        <Navbar />
         <div className=" ">
-            <Editor/>
+            <Editor />
         </div>
     </div>
 }

@@ -3,9 +3,11 @@ import { IoMdClose } from "react-icons/io";
 import { ImageUploader } from "./ImageUploader";
 import Image from "next/image";
 import { IoCheckmark, IoClose } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Editor } from "@tiptap/react";
-import axios from 'axios';
+// import axios from 'axios';
+import { useSession } from "next-auth/react";
+import { addImageDetailsToGallery, getUserGalleryById, removeImageByKey } from "@/actions/gallery";
 
 interface Props {
     visible: boolean,
@@ -14,20 +16,47 @@ interface Props {
 }
 
 interface Images {
-    appUrl: string,
     key: string,
-    name: string,
     url: string
 }
 
 
 export function ImageGallery({ visible, handleShowImageGallery, editor }: Props) {
 
+    const { data } = useSession()
+
+    //  Todo useEffect to fetch the data and set the setUploadImage 
     const [uploadedImages, setUploadedImage] = useState<Images[]>([])
 
-    function handleUploadedImages(imageDetails: Images) {
+    useEffect(() => {
+        async function getUploadedImagesByUser() {
+            if (data?.user?.id) {
+                const images = await getUserGalleryById(data.user.id)
+                if (images) {
+                    setUploadedImage(images)
+                }
+            }
+        }
+        getUploadedImagesByUser()
+    }, [data?.user?.id])
+
+
+    async function handleUploadedImages(imageDetails: Images) {
+
+        // todo do db call and store the data in the gallery database.
+        // userId, imageUrl, imageKey to store in the database.
+
+
+
         const updatedImages: Images[] = [imageDetails, ...uploadedImages]
         console.log(updatedImages[0])
+        if (data?.user?.id) {
+            await addImageDetailsToGallery({
+                userId: data.user.id,
+                imageUrl: updatedImages[0].url,
+                imageKey: updatedImages[0].key
+            })
+        }
         setUploadedImage(updatedImages)
     }
 
@@ -38,15 +67,21 @@ export function ImageGallery({ visible, handleShowImageGallery, editor }: Props)
     }
 
     async function handleOnDelete({ key, url }: { key: string, url: string }) {
-        const options = {
-            method: 'POST',
-            url: 'https://api.uploadthing.com/v6/deleteFiles',
-            headers: { 'Content-Type': 'application/json', 'X-Uploadthing-Api-Key': process.env.NEXT_PUBLIC_UPLOADTHING_SECRET },
-            data: { fileKeys: [key] }
-        };
+
+        // Todo don't delete the image remove the image on the database only.
+
+        // const options = {
+        //     method: 'POST',
+        //     url: 'https://api.uploadthing.com/v6/deleteFiles',
+        //     headers: { 'Content-Type': 'application/json', 'X-Uploadthing-Api-Key': process.env.NEXT_PUBLIC_UPLOADTHING_SECRET },
+        //     data: { fileKeys: [key] }
+        // };
+
+
         try {
-            const { data } = await axios.request(options);
-            if (data.success) {
+            // const { data } = await axios.request(options);
+            const response = await removeImageByKey(key)
+            if (response) {
                 const filterUploadedImage = uploadedImages.filter(eachImage => eachImage.key !== key)
                 setUploadedImage(filterUploadedImage)
                 editor?.chain().focus().command(({ tr, state }) => {

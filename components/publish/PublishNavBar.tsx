@@ -1,7 +1,9 @@
 import Link from "next/link"
 import { MenuSmallScreen } from "../MenuSmallScreen"
+import { auth } from "@/auth"
 
-export function PublishNavBar() {
+export async function PublishNavBar() {
+    const session = await auth()
     return <div className="mb-5">
         <div className="flex justify-between  py-4 relative items-center">
             <Link className="text-xl font-bold sm:text-2xl " href={'/'}>Medium</Link>
@@ -16,7 +18,7 @@ export function PublishNavBar() {
                 </div>
             </div>
             <div className="flex items-center space-x-8 md:hidden">
-                <MenuSmallScreen />
+                <MenuSmallScreen session={session} />
             </div>
         </div>
     </div>

@@ -44,16 +44,26 @@ model User {
   emailVerified DateTime? @map("email_verified")
   image         String?
   accounts      Account[]
+  gallery       Gallery[]    
  
   @@map("users")
 }
  
 
 model EmailVerification {
-  id        String        @id   @default(cuid())
+  id        String        @id       @default(cuid())
   email     String        @unique
   token     String        @unique
   expire    DateTime      
 
   @@map("email_verification")
+}
+
+model Gallery {
+  id          String    @id         @default(cuid())
+  userId      String                @map("user_id")
+  imageUrl    String    @unique     @map("image_url")
+  imageKey    String    @unique     @map("image_key")
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("gallery")
 }
