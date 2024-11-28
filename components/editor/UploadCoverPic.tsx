@@ -1,7 +1,6 @@
 "use client";
 import { UploadButton } from "@/utils/uploadthing";
 import Image from "next/image";
-import { useState } from "react";
 
 // interface Images {
 //     appUrl: string,
@@ -15,8 +14,12 @@ import { useState } from "react";
 //     handleUploadedImages: (imageDetails: Images) => void
 // }
 
-export function UploadCoverPic() {
-    const [coverPic, setCoverPic] = useState('')
+interface Props {
+    handleCoverPic: (coverPicUrl: string) => void,
+    coverPic: string
+}
+
+export function UploadCoverPic({ handleCoverPic, coverPic }: Props) {
 
     return <div className="flex flex-col items-start gap-y-4  w-fit">
         <UploadButton
@@ -29,7 +32,7 @@ export function UploadCoverPic() {
                     name: res[0].name,
                     url: res[0].url
                 }
-                setCoverPic(imageDetails.url)
+                handleCoverPic(imageDetails.url)
             }}
             onUploadError={(error: Error) => {
                 // Do something with the error.

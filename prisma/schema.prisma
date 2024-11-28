@@ -45,6 +45,7 @@ model User {
   image         String?
   accounts      Account[]
   gallery       Gallery[]    
+  blog          BlogPost[]
  
   @@map("users")
 }
@@ -66,4 +67,16 @@ model Gallery {
   imageKey    String    @unique     @map("image_key")
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@map("gallery")
+}
+
+model BlogPost {
+  id          String      @id            @default(cuid())
+  authorId    String                     @map("author_id")
+  title       String
+  description String
+  content     String
+  coverImage  String                      @map("cover_image")
+  createdAt   DateTime   @default(now())  @map("created_at")
+  user        User        @relation(fields: [authorId], references: [id])
+  @@map("blog_posts")
 }
