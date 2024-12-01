@@ -93,9 +93,9 @@ export function Editor() {
                     ? node.attrs.level
                     : this.options.levels[0]) as Levels
                 const classes: Record<Levels, string> = {
-                    1: 'text-4xl text-bold',
-                    2: 'text-3xl text-bold',
-                    3: 'text-2xl text-bold'
+                    1: 'text-4xl text-bold mb-3 mt-3',
+                    2: 'text-3xl text-bold mb-3 mt-3',
+                    3: 'text-2xl text-bold mb-3 mt-3'
                 }
                 return [
                     `h${level}`,
@@ -112,7 +112,7 @@ export function Editor() {
         Image.configure({
             inline: false,
             HTMLAttributes: {
-                class: "w-60 aspect-square m-auto  mt-2 rounded"
+                class: "w-60 aspect-square m-auto  mt-2 mb-2 rounded"
             }
         })
 
@@ -122,7 +122,7 @@ export function Editor() {
         extensions,
         editorProps: {
             attributes: {
-                class: 'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl mt-3 min-h-96  outline outline-gray-200 p-2 rounded',
+                class: 'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl mt-3 min-h-96  outline outline-gray-200 p-2 rounded leading-10',
             },
         },
         immediatelyRender: false,

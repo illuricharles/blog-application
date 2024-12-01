@@ -6,10 +6,19 @@ import Heading from '@tiptap/extension-heading'
 import TextAlign from '@tiptap/extension-text-align'
 import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'
+import { useEffect, useState } from 'react'
 
 type Levels = 1 | 2 | 3
 
-export function Content() {
+export function Content({ content }: {
+    content: string
+}) {
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        setLoading(false)
+    }, [content])
+
     const extensions = [
         StarterKit.configure({
             paragraph: {
@@ -60,9 +69,9 @@ export function Content() {
                     ? node.attrs.level
                     : this.options.levels[0]) as Levels
                 const classes: Record<Levels, string> = {
-                    1: 'text-4xl text-bold',
-                    2: 'text-3xl text-bold',
-                    3: 'text-2xl text-bold'
+                    1: 'text-4xl text-bold mb-3 mt-3',
+                    2: 'text-3xl text-bold mb-3 mt-3',
+                    3: 'text-2xl text-bold mb-3 mt-3'
                 }
                 return [
                     `h${level}`,
@@ -87,26 +96,26 @@ export function Content() {
 
     const editor = useEditor({
         extensions,
-        content: `
-        <img class="w-60 aspect-square m-auto  mt-2 rounded" src="https://utfs.io/f/UNHJEU85pabu8QF8ctHrwpG4xbtcnKlRDNZh5WULs0Oe1dg8" alt="">
-         <script>
-        // Simulated user input (mimicking a vulnerability)
-        const userInput = '<img src="x" onerror="alert('XSS Detected!')">';
-
-        // Vulnerable code: injecting unsanitized user input into the DOM
-        document.getElementById('output').innerHTML = userInput;
-    </script>
-        <p class="text-lg">This is a test practice</p>`,
+        content,
         editorProps: {
             attributes: {
-                class: 'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl mt-3 min-h-96  outline-gray-200 p-2 rounded',
+                class: 'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl mt-3 min-h-96  outline-none  p-2 rounded leading-10',
             },
         },
         immediatelyRender: false,
         editable: false,
     })
 
+    if (loading) {
+        return <div>
+            loading
+        </div>
+    }
+
+
     if (!editor) return null
+
+
 
     return <div>
         {/* <p className="text-lg leading-7 mb-3 lg:text-base ">
