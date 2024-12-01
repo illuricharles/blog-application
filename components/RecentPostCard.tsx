@@ -40,12 +40,15 @@ export function RecentPostCard({ posts }: { posts: PostsTypes[] }) {
                     </div>
 
                     <div className="col-span-12 sm:col-span-6">
-                        <div className="gap-3 flex flex-col sm:gap-4">
-                            <div className="flex items-center gap-x-2">
-                                <p className="text-gray-500 font-semibold">published-</p>
-                                <span className="text-green-800 font-semibold text-lg hover:underline">
-                                    <Link href={'/user-profile'}>{eachPost.user.name}</Link>
-                                </span>
+                        <div className="gap-3 flex flex-col sm:gap-2.5">
+                            <div>
+                                <div className="flex items-center gap-x-2 ">
+                                    <p className="text-gray-500 font-semibold">published</p>
+                                    <span className="text-green-800 font-semibold text-lg hover:underline">
+                                        <Link href={`/user-profile/${eachPost.authorId}`}>{eachPost.user.name}</Link>
+                                    </span>
+                                </div>
+                                <p className="text-gray-500 font-semibold text-sm -space-y-10">{`${eachPost.createdAt.getDate()}.${eachPost.createdAt.getMonth()}.${eachPost.createdAt.getFullYear()}`}</p>
                             </div>
                             <h2>
                                 <Link href="/" className="text-xl font-bold">{title}</Link>
