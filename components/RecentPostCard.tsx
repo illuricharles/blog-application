@@ -17,7 +17,6 @@ interface PostsTypes {
 }
 
 export function RecentPostCard({ posts }: { posts: PostsTypes[] }) {
-    console.log(posts)
     if (posts.length === 0) {
         return <div className="flex justify-center items-center m-auto">
             <h2 className=" text-3xl font-semibold">No posts Found</h2>

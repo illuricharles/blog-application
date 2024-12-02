@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
-import { Category } from "@/components/Category";
-import { Features } from "@/components/Features";
+// import { Category } from "@/components/Category";
+// import { Features } from "@/components/Features";
 import { Footer } from "@/components/footer/Footer";
 import { Navbar } from "@/components/Navbar";
 import { RecentPost } from "@/components/RecentPost";
@@ -12,11 +12,14 @@ export default async function Home() {
   if (!session) redirect('/auth/login')
 
   return (
-    <div className="pb-10">
+    <div className="pb-10 min-h-screen flex flex-col">
       <Navbar />
-      <Features />
-      <Category />
+
+
+      {/* <Features />
+        <Category /> */}
       <RecentPost />
+
       <Footer />
     </div>
   );

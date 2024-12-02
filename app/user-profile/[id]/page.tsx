@@ -1,9 +1,9 @@
+import { ServerError } from "@/components/errors/ServerError";
 import { DisplayNoPosts } from "@/components/userProfile/DisplayNoPosts";
 import { DisplayUserDetails } from "@/components/userProfile/DisplayUserDetails";
 import { DisplayUserPosts } from "@/components/userProfile/DisplayUserPosts";
 import { prisma } from "@/prisma";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { FaExclamationTriangle } from "react-icons/fa";
 
 /*
@@ -83,11 +83,11 @@ export default async function UserProfile({ params }: { params: Promise<{ id: st
     catch (e) {
         console.log(e)
         // const message = e instanceof Error? e.message : "server encounter an error and could not complete your request"
-        redirect('/auth/error')
+        return <div className="flex-grow mb-10 flex justify-center items-center">
+            <ServerError />
+        </div>
 
     }
-
-    console.log(userDetails)
 
     if (!userDetails) {
         return <div className="flex-grow mb-10 flex justify-center items-center">
