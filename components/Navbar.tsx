@@ -17,7 +17,7 @@ export async function Navbar() {
                     <form className="inline" action={async () => {
                         'use server'
                         await signOut({
-                            redirectTo: '/auth/login'
+                            redirectTo: '/login'
                         })
                     }}>
                         <button>

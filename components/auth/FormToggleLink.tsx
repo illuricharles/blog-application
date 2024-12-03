@@ -8,7 +8,7 @@ interface Props {
 export function FormToggleLink({ mode }: Props) {
     const displayText = mode === HeaderMode.login ? "Don't have an account?" : "Already have an account"
     return <div className="text-center">
-        <Link href={mode === HeaderMode.login ? '/auth/register' : '/auth/login'}
+        <Link href={mode === HeaderMode.login ? '/register' : '/login'}
             className="font-semibold text-sm text-gray-700 hover:underline">
             {displayText}
         </Link>

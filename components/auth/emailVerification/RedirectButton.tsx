@@ -5,7 +5,7 @@ export async function RedirectButton() {
 
     async function handleRedirect() {
         "use server"
-        redirect('/auth/login')
+        redirect('/login')
     }
 
     return <form className="inline" action={handleRedirect}>

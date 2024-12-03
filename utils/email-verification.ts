@@ -38,9 +38,7 @@ export async function verificationEmail(to: string) {
       text: "Hello from blog application",
       html: `
       <p><strong> Hi, </strong> <a href = ${
-        process.env.NEXT_PUBLIC_BASE_URL +
-        "/auth/verify-email?token=" +
-        `${token}`
+        process.env.NEXT_PUBLIC_BASE_URL + "/verify-email?token=" + `${token}`
       }>click here</a> to verify your email</p>`,
     };
 

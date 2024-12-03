@@ -42,7 +42,7 @@ export function RegisterForm() {
 
 
         if (response.success) {
-            router.push('/auth/login')
+            router.push('/login')
         }
     }
 

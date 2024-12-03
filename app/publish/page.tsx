@@ -10,7 +10,7 @@ export default async function Publish() {
 
     const session = await auth()
     if (!session) {
-        redirect('/auth/login')
+        redirect('/login')
     }
 
 
