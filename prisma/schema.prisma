@@ -46,6 +46,7 @@ model User {
   accounts      Account[]
   gallery       Gallery[]    
   blog          BlogPost[]
+  comments      Comment[]
  
   @@map("users")
 }
@@ -78,5 +79,21 @@ model BlogPost {
   coverImage  String                      @map("cover_image")
   createdAt   DateTime   @default(now())  @map("created_at")
   user        User        @relation(fields: [authorId], references: [id])
+  comments    Comment[]   
   @@map("blog_posts")
+}
+
+model Comment {
+  id          String      @id         @default(cuid())
+  postId      String                  @map("post_id")
+  userId      String                  @map("user_id")
+  comment     String
+  createdAt   DateTime                @default(now())   @map("created_at")
+  updatedAt   DateTime    @updatedAt                    @map("updated_at")
+
+  //relations
+  post      BlogPost      @relation(fields: [postId], references: [id])
+  user      User          @relation(fields: [userId], references: [id])
+
+  @@map("comments")
 }
