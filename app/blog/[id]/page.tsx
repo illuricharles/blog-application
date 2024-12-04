@@ -13,6 +13,9 @@ async function getPost(id: string) {
         const post = await prisma.blogPost.findUnique({
             where: {
                 id
+            },
+            include: {
+                comments: true
             }
         })
         return post
@@ -49,7 +52,6 @@ export default async function Blog({ params }: { params: Promise<{ id: string }>
     try {
         post = await getPost(id)
         user = await getPostUserDetails(id)
-        console.log(user)
     }
     catch (e) {
         console.log(e)
@@ -86,7 +88,8 @@ export default async function Blog({ params }: { params: Promise<{ id: string }>
                     <div>
                         {user ? <PostHeader title={post.title} authorName={user.user.name} authorId={user.authorId} createdAt={user.createdAt} /> : null}
                         <Content content={post.content} />
-                        <Comments />
+                        <h3 className="text-3xl mb-4 mt-2">Comments</h3>
+                        <Comments postId={post.id} />
                     </div>
                 </div>
 

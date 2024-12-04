@@ -20,6 +20,7 @@ export function PostHeader({ title, authorName, authorId, createdAt }: {
                         className="object-cover rounded-full"
                         fill
                         sizes="(max-width: 768px) 50px, (max-width: 1200px) 100px, 50px"
+                        priority
                     />
                 </div>
                 <div className="flex flex-col -space-y-0.5">

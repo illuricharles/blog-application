@@ -1,6 +1,5 @@
 "use client"
 import Image from "next/image";
-import { MdFileUpload } from "react-icons/md";
 import { UploadButton } from "@/utils/uploadthing";
 import { useState } from "react";
 import { FaTriangleExclamation } from "react-icons/fa6";

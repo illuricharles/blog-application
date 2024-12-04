@@ -1,6 +1,6 @@
 
 import { Menu } from "../Menu";
-import Comments from "./Comments";
+// import Comments from "./Comments";
 import { Content } from "./Content";
 
 // This component is currently not used in the application but might be needed in the future.
@@ -13,7 +13,7 @@ export async function BlogContent({ content }: {
             <div className="col-span-7 lg:col-span-5 space-x-8 xl:space-y-10">
                 <div>
                     <Content content={content} />
-                    <Comments />
+                    {/* <Comments postId="" /> */}
                 </div>
             </div>
 
