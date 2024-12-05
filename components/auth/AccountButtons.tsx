@@ -23,7 +23,7 @@ export function AccountButtons() {
                 return (
                     <form key={eachButton.id} className="flex-1 mb-3" action={async () => {
                         "use server"
-                        await signIn('github', {
+                        await signIn(eachButton.id, {
                             redirect: true
                         })
                     }}>
