@@ -6,10 +6,14 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: 'utfs.io',
-      }
-    ]
-  }
+        hostname: "utfs.io",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
