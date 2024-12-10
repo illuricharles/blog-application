@@ -6,8 +6,8 @@ import { FaTriangleExclamation } from "react-icons/fa6";
 import { BiCheckCircle } from "react-icons/bi";
 import { updateUserProfileImage } from "@/actions/editUserProfile";
 
-export function ProfilePhoto({ userProfileImage, userId }: { userProfileImage: string, userId: string }) {
-    const [profileImage, setProfileImage] = useState(userProfileImage)
+export function ProfilePhoto({ userProfileImage, userId }: { userProfileImage: string | null, userId: string }) {
+    const [profileImage, setProfileImage] = useState(userProfileImage ? userProfileImage : '/p1.jpeg')
     const [uploadSuccess, setUploadSuccess] = useState(false)
     const [uploadError, setUploadError] = useState(false)
 
@@ -17,9 +17,11 @@ export function ProfilePhoto({ userProfileImage, userId }: { userProfileImage: s
             <p className="text-lg text-gray-500 font-semibold">We support JPEG or PNG under 4MB</p>
         </div>
         <div className="flex flex-col gap-x-5 mb-2 w-fit items-center gap-y-4">
-            <div className="relative  ">
-                <Image src={profileImage ? profileImage : "/p1.jpeg"} alt="profile-image" width={1000} height={1000} className="w-20 h-20 rounded-full object-cover" />
-            </div>
+            {profileImage &&
+                <div className="relative  ">
+                    <Image src={profileImage ? profileImage : "/p1.jpeg"} alt="profile-image" width={500} height={500} className="w-24 h-24 rounded-full object-cover" priority />
+                </div>
+            }
             <button className="flex items-center">
                 {/* <MdFileUpload size={25} /> */}
                 {/* <p className="text-base text-gray-800 font-semibold">Upload</p> */}
