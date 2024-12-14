@@ -18,8 +18,8 @@ export function ProfilePhoto({ userProfileImage, userId }: { userProfileImage: s
         </div>
         <div className="flex flex-col gap-x-5 mb-2 w-fit items-center gap-y-4">
             {profileImage &&
-                <div className="relative  ">
-                    <Image src={profileImage ? profileImage : "/p1.jpeg"} alt="profile-image" width={500} height={500} className="w-24 h-24 rounded-full object-cover" priority />
+                <div className="relative">
+                    <Image src={profileImage ? profileImage : "/p1.jpeg"} alt="profile-image" width={500} height={500} className="w-24 h-24 rounded-full object-cover" />
                 </div>
             }
             <button className="flex items-center">

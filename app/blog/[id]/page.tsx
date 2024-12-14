@@ -1,4 +1,5 @@
 // import { BlogContent } from "@/components/blogContent/BlogContent"
+import { auth } from "@/auth"
 import Comments from "@/components/blogContent/Comments"
 import { Content } from "@/components/blogContent/Content"
 import { ServerError } from "@/components/errors/ServerError"
@@ -15,7 +16,7 @@ async function getPost(id: string) {
                 id
             },
             include: {
-                comments: true
+                comments: true,
             }
         })
         return post
@@ -37,6 +38,7 @@ async function getPostUserDetails(blogId: string) {
             user: {
                 select: {
                     name: true,
+                    image: true
                 }
             }
         }
@@ -47,6 +49,7 @@ async function getPostUserDetails(blogId: string) {
 export default async function Blog({ params }: { params: Promise<{ id: string }> }) {
 
     const { id } = await params
+    const session = await auth()
     let post
     let user
     try {
@@ -71,32 +74,18 @@ export default async function Blog({ params }: { params: Promise<{ id: string }>
         </div>
     }
 
-
     return <div className="grow">
-
-
-        {/* <BlogContent content={post.content} /> */}
-
-        {/* 
-            Commented the BlogContent component to avoid the prop drilling(content) and 
-            pasted the BlogContent Component code below.
-        */}
         <div className="mb-10">
             <div className="grid grid-cols-7 gap-x-10">
                 <div className="hidden col-span-1 lg:block"></div>
                 <div className="col-span-7 lg:col-span-5 space-x-8 xl:space-y-10">
                     <div>
-                        {user ? <PostHeader title={post.title} authorName={user.user.name} authorId={user.authorId} createdAt={user.createdAt} /> : null}
+                        {user ? <PostHeader title={post.title} image={user.user.image} authorName={user.user.name} authorId={user.authorId} createdAt={user.createdAt} /> : null}
                         <Content content={post.content} />
                         <h3 className="text-3xl mb-4 mt-2">Comments</h3>
-                        <Comments postId={post.id} />
+                        <Comments postId={post.id} loggedInUser={session?.user?.id} />
                     </div>
                 </div>
-
-                {/* <div className="hidden col-span-2 lg:block">
-                    <Menu />
-                </div> */}
-
             </div>
         </div>
 

@@ -11,16 +11,15 @@ export function Footer() {
 
         <div className=" justify-around flex md:gap-8 lg:gap-20 md:justify-start">
             <div>
-                <p className=" mb-1 font-medium">Links</p>
+                <p className=" mb-1 font-semibold">Links</p>
                 <ul className="flex flex-col gap-1">
-                    <Link href="/">Homepage</Link>
-                    <Link href="/">Blog</Link>
-                    <Link href="/">About</Link>
-                    <Link href="/">Contact</Link>
+                    <Link href="/">Home</Link>
+                    <Link href="/profile">Profile</Link>
+                    <Link href="/publish">Publish</Link>
                 </ul>
             </div>
 
-            <div>
+            {/* <div>
                 <p className="mb-1 font-medium">Tags</p>
                 <ul className="flex flex-col gap-1">
                     <Link href="/">Style</Link>
@@ -28,18 +27,17 @@ export function Footer() {
                     <Link href="/">coding</Link>
                     <Link href="/">travel</Link>
                 </ul>
-            </div>
+            </div> */}
 
             <div>
-                <p className="mb-1 font-medium">Social</p>
-                <ul className="flex flex-col gap-1">
+                <p className="mb-1 font-semibold">Social</p>
+                <ul className="flex flex-col gap-1 ">
                     <Link href="/">Facebook</Link>
                     <Link href="/">Instagram</Link>
                     <Link href="/">Tiktok</Link>
                     <Link href="/">Youtube</Link>
                 </ul>
             </div>
-
         </div>
     </div>
 }

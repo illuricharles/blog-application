@@ -61,6 +61,7 @@ async function fetchUserDetails(userId: string) {
             select: {
                 name: true,
                 email: true,
+                image: true
             }
         })
         return userDetails

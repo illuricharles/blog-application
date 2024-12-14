@@ -9,6 +9,7 @@ import { addComment } from "@/actions/comments";
 
 type Comment = {
     user: {
+        image: string | null;
         name: string | null;
         id: string;
     };

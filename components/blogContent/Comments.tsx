@@ -8,6 +8,7 @@ import CommentList from "./CommentsList";
 
 type Comment = {
     user: {
+        image: string | null;
         name: string | null;
         id: string;
     };
@@ -22,13 +23,10 @@ type Comment = {
 
 
 
-export default function Comments({ postId }: { postId: string }) {
+export default function Comments({ postId, loggedInUser }: { postId: string, loggedInUser: string | undefined }) {
     const [loading, setLoading] = useState(true)
     const [comments, setComments] = useState<Comment[]>([])
     const [error, setError] = useState("")
-
-
-
 
     useEffect(() => {
         async function getAllPostComments() {
@@ -47,11 +45,24 @@ export default function Comments({ postId }: { postId: string }) {
         setLoading(false)
     }, [postId])
 
-    function getNewComment(newComment: Comment) {
+    async function updateCommentsAfterDelete(commentId: string) {
+        setComments((prevState) => {
+            return prevState.filter(eachComment => eachComment.id !== commentId)
+        })
+        try {
+            const updatedComments = await getAllComments(postId)
+            setComments(updatedComments)
+        }
+        catch (e) {
+            console.error(e)
+        }
+
+    }
+
+    async function getNewComment(newComment: Comment) {
         setComments(prevState => ([newComment, ...prevState]))
         console.log(comments)
     }
-
 
 
 
@@ -70,11 +81,6 @@ export default function Comments({ postId }: { postId: string }) {
     return <div>
         <div className="">
             <CommentsInput postId={postId} getNewComment={getNewComment} />
-            {/* display list of comments */}
-            {/* Todo 
-                display the comments,
-                add error handling.
-            */}
             {error ?
                 <div className="h-36 flex justify-center items-center">
                     <FaExclamationTriangle size={25} className="text-red-600" />
@@ -85,13 +91,8 @@ export default function Comments({ postId }: { postId: string }) {
             <div className="mt-7 space-y-6">
 
                 {comments.length === 0 ? <NoComments /> : comments.map(eachComment => {
-                    return <CommentList key={eachComment.id} commentDetails={eachComment} />
+                    return <CommentList key={eachComment.id} userProfileImage={eachComment.user.image} updateCommentsAfterDelete={updateCommentsAfterDelete} commentDetails={eachComment} loggedInUser={loggedInUser} />
                 })}
-                {/* <CommentList />
-                <CommentList />
-                <CommentList />
-                <CommentList />
-                <CommentList /> */}
             </div>
         </div>
     </div>

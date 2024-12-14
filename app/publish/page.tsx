@@ -6,8 +6,7 @@ import { redirect } from "next/navigation";
 
 export default async function Publish() {
 
-    // editor add publishing while when user click on publish button 
-
+    // editor add publishing while when user click on publish button
     const session = await auth()
     if (!session) {
         redirect('/login')

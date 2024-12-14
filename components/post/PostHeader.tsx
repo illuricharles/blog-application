@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export function PostHeader({ title, authorName, authorId, createdAt }: {
+export function PostHeader({ title, authorName, authorId, createdAt, image }: {
     title: string,
     authorName: string | null,
     authorId: string,
-    createdAt: Date
+    createdAt: Date,
+    image: string | null
 }) {
     return <div className="mb-2 grid grid-cols-1 gap-5 lg:gap-10 xl:gap-9 items-center ">
         <div className="xl:h-full xl:flex xl:flex-col xl:justify-center">
@@ -15,7 +16,7 @@ export function PostHeader({ title, authorName, authorId, createdAt }: {
             <div className="flex items-center gap-x-2 ">
                 <div className="relative w-14 h-14">
                     <Image
-                        src="/p1.jpeg"
+                        src={image ? image : "/p1.jpeg"}
                         alt="User Avatar"
                         className="object-cover rounded-full"
                         fill
@@ -25,9 +26,9 @@ export function PostHeader({ title, authorName, authorId, createdAt }: {
                 </div>
                 <div className="flex flex-col -space-y-0.5">
                     <span>
-                        <Link href={`/user-profile/${authorId}`} className="text-sm md:text-base font-bold text-emerald-600 ">{authorName}</Link>
+                        <Link href={`/user-profile/${authorId}`} className="text-sm md:text-base font-bold text-emerald-700 capitalize">{authorName}</Link>
                     </span>
-                    <span className="text-sm  text-gray-500 font-semibold">
+                    <span className="text-sm  text-gray-600 font-semibold">
                         {`${createdAt.getDate()}.${createdAt.getMonth()}.${createdAt.getFullYear()}`}
                     </span>
                 </div>

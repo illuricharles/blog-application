@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+// import { auth } from "@/auth";
 // import { Category } from "@/components/Category";
 // import { Features } from "@/components/Features";
 // import { Footer } from "@/components/footer/Footer";
@@ -8,10 +8,10 @@ import { redirect } from "next/navigation";
 
 
 export default async function Home() {
-  const session = await auth()
-  if (!session) redirect('/login')
+  // const session = await auth()
+  // if (!session) redirect('/login')
 
-  redirect('/1')
+  return redirect('/1')
 
   // return (
   //   <div className="pb-10 min-h-screen flex flex-col">

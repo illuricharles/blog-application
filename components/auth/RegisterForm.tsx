@@ -8,7 +8,7 @@ import { userRegister } from "@/actions/userRegister"
 import { FormSubmissionError } from "./FormSubmissionError"
 import { FormSubmissionSuccess } from "./FormSubmissionSuccess"
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 
 type registerFormTypes = z.infer<typeof RegisterFormSchema>
 
@@ -18,7 +18,7 @@ interface FormSubmissionMessage {
 }
 
 export function RegisterForm() {
-    const router = useRouter()
+    // const router = useRouter()
     const [loading, setLoading] = useState(true)
     const [formSubmissionMessage, setFormSubmissionMessage] = useState<FormSubmissionMessage>({
         success: "",
@@ -41,9 +41,9 @@ export function RegisterForm() {
         })
 
 
-        if (response.success) {
-            router.push('/login')
-        }
+        // if (response.success) {
+        //     router.push('/login')
+        // }
     }
 
     useEffect(() => {

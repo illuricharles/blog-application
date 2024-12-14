@@ -1,8 +1,10 @@
 // import { VerifyEmailFailed } from "@/components/auth/emailVerification/VerifyEmailFailed";
+import { auth } from "@/auth";
 import { VerifyEmailFailed } from "@/components/auth/emailVerification/VerifyEmailFailed";
 import { VerifyEmailSuccess } from "@/components/auth/emailVerification/VerifyEmailSuccess";
 import { getEmailVerificationByToken } from "@/data/emailVerification";
 import { setEmailVerificationTrueByEmail } from "@/data/user";
+import { redirect } from "next/navigation";
 import { FaExclamationTriangle } from "react-icons/fa";
 
 // enum VerificationEmailStatus {
@@ -41,7 +43,12 @@ function RenderEmailVerificationFailed() {
 export default async function VerifyEmail({ searchParams }: Props) {
 
     const { token } = await searchParams
+    const session = await auth()
     console.log(token)
+    if (session?.user) {
+        return redirect('/')
+    }
+
     if (!token || typeof token !== 'string') {
         return <RenderEmailVerificationFailed />
     }

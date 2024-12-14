@@ -2,6 +2,7 @@
 import { auth } from "@/auth";
 import { prisma } from "@/prisma";
 import { CommentSchema } from "@/utils/CommentSchema";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 type CommentTypes = z.infer<typeof CommentSchema>;
@@ -30,6 +31,7 @@ export async function addComment(comment: CommentTypes, postId: string) {
             select: {
               id: true,
               name: true,
+              image: true,
             },
           },
         },
@@ -60,8 +62,12 @@ export async function getAllComments(postId: string) {
           select: {
             name: true,
             id: true,
+            image: true,
           },
         },
+      },
+      orderBy: {
+        updatedAt: "desc",
       },
     });
     return comments;
@@ -71,4 +77,49 @@ export async function getAllComments(postId: string) {
       "Unable to get comments. Please reload the page or try again later."
     );
   }
+}
+
+export async function deleteCommentById(commentId: string) {
+  const session = await auth();
+  if (!session || !session.user) {
+    return redirect("/");
+  }
+  let commentDetails;
+  try {
+    commentDetails = await prisma.comment.findUnique({
+      where: {
+        id: commentId,
+      },
+      select: {
+        id: true,
+        userId: true,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+    throw new Error("Unexpected error occurred. Please try again later");
+  }
+  if (!commentDetails) {
+    throw new Error("Comment doesn't exist.");
+  }
+
+  if (commentDetails.userId !== session.user.id) {
+    throw new Error("You can't delete another user's comment.");
+  }
+
+  let deletedCommentId;
+  try {
+    deletedCommentId = await prisma.comment.delete({
+      where: {
+        id: commentId,
+      },
+      select: {
+        id: true,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+    throw new Error("Unable to delete comment now. Please try again later.");
+  }
+  return deletedCommentId;
 }
