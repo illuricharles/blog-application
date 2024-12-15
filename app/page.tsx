@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+// import { auth } from "@/auth";
 // import { Category } from "@/components/Category";
 // import { Features } from "@/components/Features";
 // import { Footer } from "@/components/footer/Footer";
@@ -8,13 +8,7 @@ import { redirect } from "next/navigation";
 
 
 export default async function Home() {
-  const session = await auth()
-  if (!session) {
-    return redirect('/login')
-  }
-  else {
-    return redirect('/1')
-  }
+  redirect('/1')
 
 
   // return (
