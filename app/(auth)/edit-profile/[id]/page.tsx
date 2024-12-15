@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 
 
 
-export default async function ProfilePage({ params }: { params: { id: string } }) {
+export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
     const session = await auth()
     const { id } = await params
 
@@ -24,7 +24,6 @@ export default async function ProfilePage({ params }: { params: { id: string } }
     let user, error
     try {
         user = await getUserDetails(id)
-        console.log(user)
     }
     catch (e) {
         console.log(e)

@@ -17,7 +17,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 // }
 
 interface Props {
-    searchParams: Record<string, string | string[] | undefined>
+    searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
 function RenderEmailVerification({ children }: { children: React.ReactNode }) {

@@ -12,6 +12,7 @@ import Image from '@tiptap/extension-image'
 import { UploadCoverPic } from './UploadCoverPic'
 import { PostSchema } from '@/utils/editor/editorValidation'
 import { publishBlog } from '@/actions/blogPost'
+import { useRouter } from 'next/navigation'
 
 interface BlogPostErrorsTypes {
     content: string,
@@ -27,6 +28,7 @@ type Levels = 1 | 2 | 3
 
 export function Editor() {
     const titleRef = useRef<HTMLInputElement>(null)
+    const router = useRouter()
     const descriptionRef = useRef<HTMLInputElement>(null)
     const [publishError, setPublishError] = useState('')
     const [showGallery, setShowGallery] = useState(false)
@@ -180,6 +182,14 @@ export function Editor() {
                 // todo server function error
 
                 setPublishError(publishPost.message || "something went wrong. please try again after sometime")
+            }
+            else if (!publishPost?.error) {
+                if (publishPost?.post?.id) {
+                    router.push(`/blog/${publishPost?.post?.id}`)
+                }
+                else {
+                    router.push('/')
+                }
             }
         }
         if (!response.success) {

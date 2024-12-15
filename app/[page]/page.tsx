@@ -4,7 +4,7 @@ import { Navbar } from "@/components/Navbar"
 import { RecentPost } from "@/components/RecentPost"
 import { redirect } from "next/navigation"
 
-export default async function BlogPage({ params }: { params: { page: string } }) {
+export default async function BlogPage({ params }: { params: Promise<{ page: string }> }) {
 
     const { page } = await params
     // const session = await auth()
