@@ -2,7 +2,7 @@
 import { Footer } from "@/components/footer/Footer"
 import { Navbar } from "@/components/Navbar"
 import { RecentPost } from "@/components/RecentPost"
-import { redirect } from "next/navigation"
+import { notFound } from "next/navigation"
 
 export default async function BlogPage({ params }: { params: Promise<{ page: string }> }) {
 
@@ -13,7 +13,7 @@ export default async function BlogPage({ params }: { params: Promise<{ page: str
 
     const currentPage = parseInt(page)
     if (isNaN(currentPage) || currentPage < 1) {
-        redirect('/1')
+        return notFound()
     }
 
 
