@@ -10,6 +10,7 @@ export default async function BlogPage({ params }: { params: Promise<{ page: str
     // const session = await auth()
     // if (!session) redirect('/login')
 
+
     const currentPage = parseInt(page)
     if (isNaN(currentPage) || currentPage < 1) {
         redirect('/1')

@@ -10,10 +10,10 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   const session = await auth()
   if (!session) {
-    redirect('/login')
+    return redirect('/login')
   }
   else {
-    redirect('/1')
+    return redirect('/1')
   }
 
 
