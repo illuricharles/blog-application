@@ -225,7 +225,7 @@ export function Editor() {
                     {errors.coverPicUrl ? <p className='text-red-600 font-semibold  capitalize'>{errors.coverPicUrl}</p> : null}
                 </div>
                 <div className='mt-3 mb-5 text-center'>
-                    <button className="mb-3 font-semibold text-xl py-2 px-4 rounded-md border text-white bg-green-600"
+                    <button className="mb-3 font-semibold text-xl py-2 px-4 rounded-md border text-white bg-green-600" type="submit"
                         onClick={async () => await publishPost()}>
                         publish
                     </button>
