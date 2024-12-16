@@ -216,15 +216,16 @@ export function Editor() {
                             <p className="text-red-600 font-semibold capitalize">{errors.coverPicUrl}</p>
                         )}
                     </div>
-                    <div className="mt-3 mb-5 text-center">
+                    <div className='flex flex-col justify-center items-center gap-y-1 mb-5'>
                         <button
-                            className="mb-3 font-semibold text-xl py-2 px-4 rounded-md border text-white bg-green-600"
+                            className="font-semibold w-fit  text-xl py-2 px-4 rounded-md border text-white bg-green-600"
                             type="submit"
                         >
                             Publish
                         </button>
-                        {publishError && <p className="capitalize text-red-600 font-semibold">{publishError}</p>}
+                        {publishError && <p className="capitalize text-red-600 font-semibold mb-2">{publishError}</p>}
                     </div>
+
                 </div>
             </form>
         </div>
