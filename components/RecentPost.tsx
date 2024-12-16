@@ -71,10 +71,13 @@ export async function RecentPost({ page }: { page: number }) {
     const totalPages = Math.ceil(postCount / pageSize);
 
     // Redirect if the requested page is out of bounds
+    if (totalPages === 0) {
+        return redirect('/publish')
+    }
 
 
     if (page < 1 || page > totalPages) {
-        redirect("/"); // Stop further execution
+        redirect("/1"); // Stop further execution
     }
 
 

@@ -226,7 +226,7 @@ export function Editor() {
                 </div>
                 <div className='mt-3 mb-5 text-center'>
                     <button className="mb-3 font-semibold text-xl py-2 px-4 rounded-md border text-white bg-green-600"
-                        onClick={() => publishPost()}>
+                        onClick={async () => await publishPost()}>
                         publish
                     </button>
                     {publishError ? <p className='capitalize text-red-600 font-semibold'>{publishError}</p> : null}
